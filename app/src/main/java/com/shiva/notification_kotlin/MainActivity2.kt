@@ -59,6 +59,7 @@ class MainActivity2 : AppCompatActivity() {
                     .setContentText("Content")
                     .setPriority(NotificationCompat.PRIORITY_MAX) // you must also set the priority with setPriority() to support Android 7.1 and lower
                     //  If you want your notification to be longer, you can enable an expandable notification by adding a style template with setStyle().
+                    .setCategory(NotificationCompat.CATEGORY_MESSAGE) //the system will make decisions about displaying your notification when the device is in Do Not Disturb mode.
                     .setStyle(
                         NotificationCompat.BigTextStyle()
                             .bigText("Much longer text that cannot fit one line...")
@@ -67,6 +68,8 @@ class MainActivity2 : AppCompatActivity() {
                     .setContentIntent(pendingIntent) // To open the app (particular activity) when the user taps the notification.
                     .addAction(R.drawable.ic_launcher, getString(R.string.notification_btn),
                         pendingIntent) // To add an action button in the notification, pass a PendingIntent to the addAction() method.
+                        // If your app targets Android 10 (API level 29) or higher, you must request the USE_FULL_SCREEN_INTENT permission in your app's manifest file
+                    .setFullScreenIntent(pendingIntent, true) // used for alarms and calls.
                     .setAutoCancel(true) //which automatically removes the notification when the user taps it.
             with(NotificationManagerCompat.from(this)) {
                 // notificationId is a unique int for each notification that you must define.
